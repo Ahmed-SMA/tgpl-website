@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#043222">
+  <title>TGPL | Integrated Engineering Solutions Pakistan</title>
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#031d15;color:#f6e9d9;font-family:Inter,Arial,sans-serif}.boot{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 38%,rgba(40,182,96,.16),transparent 34%),linear-gradient(145deg,#02130e,#043222 58%,#02130e)}.boot-card{width:min(430px,100%);padding:28px;border:1px solid rgba(255,255,255,.16);border-radius:20px;background:rgba(3,53,37,.72);box-shadow:0 30px 80px rgba(0,0,0,.38);backdrop-filter:blur(22px);text-align:center}.mark{width:58px;height:58px;margin:0 auto 18px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.22);border-radius:14px;background:linear-gradient(135deg,rgba(50,201,111,.9),rgba(4,82,61,.82));font-weight:900;letter-spacing:.08em}.boot h1{margin:0;font-size:22px;text-transform:uppercase;letter-spacing:.08em}.boot p{margin:10px 0 0;color:#b9c8c0;font-size:14px}.bar{height:3px;margin-top:24px;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.1)}.bar:after{content:"";display:block;width:42%;height:100%;background:#28b660;animation:load 1.15s ease-in-out infinite alternate}@keyframes load{to{transform:translateX(140%)}}.error{color:#ffd9d9}.retry{margin-top:18px;padding:12px 18px;border:1px solid rgba(255,255,255,.25);border-radius:12px;background:rgba(40,182,96,.75);color:white;font-weight:800;cursor:pointer}
+  </style>
+</head>
+<body>
+  <main class="boot" id="boot">
+    <section class="boot-card">
+      <div class="mark">TGPL</div>
+      <h1>Powering Progress</h1>
+      <p id="status">Loading the approved TGPL website…</p>
+      <div class="bar" id="bar"></div>
+    </section>
+  </main>
+  <script>
+  (()=>{
+    const prefixFiles=Array.from({length:8},(_,i)=>`approved-prefix-gz/index-${String(i).padStart(3,'0')}`);
+    const tailFiles=[
+      'approved-site/index-002','approved-site/index-003','approved-site/index-004','approved-site/index-005',
+      'approved-site/index-006','approved-site/index-007','approved-site/index-008','approved-site/index-009',
+      'approved-site/index-010','approved-site/index-011','approved-site/index-012','approved-site/index-013',
+      'approved-site/index-014','approved-site/index-015a','approved-site/index-015b','approved-site/index-016',
+      'approved-site/index-017','approved-site/index-018'
+    ];
+    const text=async files=>(await Promise.all(files.map(async file=>{
+      const response=await fetch(new URL(file,location.href),{cache:'no-store'});
+      if(!response.ok) throw new Error(`${file}: ${response.status}`);
+      return (await response.text()).trim();
+    }))).join('');
+    const bytes=b64=>Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
+    const decode=b64=>new TextDecoder().decode(bytes(b64));
+    async function start(){
+      try{
+        if(!('DecompressionStream' in window)) throw new Error('This browser needs an update to open the website.');
+        const [prefix64,tail64]=await Promise.all([text(prefixFiles),text(tailFiles)]);
+        const stream=new Blob([bytes(prefix64)]).stream().pipeThrough(new DecompressionStream('gzip'));
+        const prefix=await new Response(stream).text();
+        const html=prefix+decode(tail64);
+        if(!html.includes('mobile-hero-title')||!html.includes('Final production refinement')) throw new Error('Website verification failed.');
+        document.open();document.write(html);document.close();
+      }catch(error){
+        const status=document.getElementById('status');
+        status.className='error';status.textContent='The website could not finish loading. Please refresh once.';
+        document.getElementById('bar').style.display='none';
+        const button=document.createElement('button');button.className='retry';button.textContent='Refresh website';button.onclick=()=>location.reload();
+        status.after(button);console.error(error);
+      }
+    }
+    start();
+  })();
+  </script>
+</body>
+</html>
