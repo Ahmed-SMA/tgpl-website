@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -67,6 +67,18 @@ jobs:
           test -f _site/assets/brand/tgpl-logo-full.webp
           test -f _site/assets/clients/chakor-ventures.webp
           test -f _site/assets/clients/marriott-international.webp
+
+      - name: Sync approved HTML to repository root
+        run: |
+          set -euo pipefail
+          if ! cmp -s _site/index.html index.html; then
+            cp _site/index.html index.html
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Publish approved TGPL website source"
+            git push origin HEAD:main
+          fi
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
