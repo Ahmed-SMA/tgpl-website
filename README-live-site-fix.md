@@ -1,1 +1,0 @@
-TGPL website repair in progress. The production commit will replace this temporary note.

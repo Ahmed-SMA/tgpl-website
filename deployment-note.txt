@@ -1,1 +1,0 @@
-A clean production tree will replace temporary repository files in the next commit.
