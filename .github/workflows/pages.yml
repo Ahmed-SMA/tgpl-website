@@ -24,15 +24,46 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build static site
+      - name: Build verified approved site
         run: |
           set -euo pipefail
           mkdir -p _site
-          cat site-parts/index-* | base64 --decode > _site/index.html
+
+          # Restore the verified compressed prefix of the approved HTML.
+          cat approved-prefix-gz/index-* | base64 --decode | gzip -dc > _site/index.html
+
+          # Append the verified remainder of the approved HTML.
+          cat \
+            approved-site/index-002 \
+            approved-site/index-003 \
+            approved-site/index-004 \
+            approved-site/index-005 \
+            approved-site/index-006 \
+            approved-site/index-007 \
+            approved-site/index-008 \
+            approved-site/index-009 \
+            approved-site/index-010 \
+            approved-site/index-011 \
+            approved-site/index-012 \
+            approved-site/index-013 \
+            approved-site/index-014 \
+            approved-site/index-015a \
+            approved-site/index-015b \
+            approved-site/index-016 \
+            approved-site/index-017 \
+            approved-site/index-018 \
+            | base64 --decode >> _site/index.html
+
+          # Refuse deployment unless the reconstructed file is byte-for-byte correct.
+          printf '%s  %s\n' '16f8baf7d42b26f2f489232f76a7087422e1f201f04b08540776df958955953d' '_site/index.html' | sha256sum -c -
+
           cp -R assets _site/assets
           cp _site/index.html _site/404.html
           touch _site/.nojekyll
-          test -s _site/index.html
+
+          grep -q 'Final production refinement' _site/index.html
+          grep -q 'primary-navigation' _site/index.html
+          grep -q 'mobile-hero-title' _site/index.html
           test -f _site/assets/brand/tgpl-logo-full.webp
           test -f _site/assets/clients/chakor-ventures.webp
           test -f _site/assets/clients/marriott-international.webp
