@@ -1,22 +1,46 @@
-# TGPL Website
+# TGPL Website — Local Review Master
 
-Rebuilt corporate website for TechnoGuild (Private) Limited.
+This is the current local review build for **Techno Guild Pakistan (Private) Limited**. The folder is being reviewed before any further GitHub deployment.
 
-## Current design
+## Approved visual direction in this build
 
-- Dark evergreen editorial hero with oversized **Powering Progress** typography
-- Original illustrated generator, solar array and hybrid battery system
-- Hover motion, floating labels, scroll reveals and pointer parallax
-- Responsive mobile navigation and layout
-- Integrated services, capabilities, clientele, partners and quotation sections
-- GitHub Pages deployment through Actions
+- Evergreen, deep-green, signal-green, cool-grey and almond-cream brand palette
+- Editorial homepage hero based on the approved layout reference
+- Oversized “Powering Progress” typography
+- Original illustrated TGPL generator, solar array and hybrid battery composition
+- Hover motion, floating labels and pointer parallax
+- Responsive desktop, tablet and mobile layouts
+- Animated clientele and technology-partner rails
 
-## Brand asset handling
+## Exact supplied logo handling
 
-The supplied TGPL identity is preserved in its complete form. The mark, `TechnoGuild` wording and `(Private) Limited` wording are treated as one logo and are not cropped, rearranged or recreated. The same complete asset is used in the header, footer and favicon.
+The supplied logo files are used as complete, unaltered images:
 
-The supplied Chakor Ventures and Marriott identities are also displayed in their complete supplied proportions with `object-fit: contain`, preventing cropping.
+- `assets/brand/tgpl-logo-complete.png` — complete TGPL identity used in header, footer and favicon
+- `assets/clients/chakor-ventures.png` — exact supplied Chakor Ventures logo
+- `assets/clients/marriott-international.png` — exact supplied Marriott International logo
 
-## Deployment
+All three use `object-fit: contain`; no logo is cropped, rebuilt, rearranged or masked.
 
-Every push to `main` triggers `.github/workflows/pages.yml`, reconstructs the static page from the checked-in deployment parts and publishes it to GitHub Pages.
+## Pages
+
+- Home
+- About
+- Services
+- Projects / capabilities
+- Contact / quotation inquiry
+- Six service-detail pages
+
+## Local preview
+
+From this folder, run:
+
+```bash
+python -m http.server 8080
+```
+
+Then open `http://localhost:8080/index.html`.
+
+## Review workflow
+
+Use this folder as the local master for the next requested changes. Deploy to the main GitHub repository only after visual approval.

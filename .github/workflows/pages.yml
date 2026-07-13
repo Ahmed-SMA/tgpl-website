@@ -1,12 +1,12 @@
-name: Deploy TGPL website
+name: Deploy static site to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -23,73 +23,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Build verified approved site
-        run: |
-          set -euo pipefail
-          mkdir -p _site
-
-          # Restore the verified compressed prefix of the approved HTML.
-          cat approved-prefix-gz/index-* | base64 --decode | gzip -dc > _site/index.html
-
-          # Append the verified remainder of the approved HTML.
-          cat \
-            approved-site/index-002 \
-            approved-site/index-003 \
-            approved-site/index-004 \
-            approved-site/index-005 \
-            approved-site/index-006 \
-            approved-site/index-007 \
-            approved-site/index-008 \
-            approved-site/index-009 \
-            approved-site/index-010 \
-            approved-site/index-011 \
-            approved-site/index-012 \
-            approved-site/index-013 \
-            approved-site/index-014 \
-            approved-site/index-015a \
-            approved-site/index-015b \
-            approved-site/index-016 \
-            approved-site/index-017 \
-            approved-site/index-018 \
-            | base64 --decode >> _site/index.html
-
-          # Refuse deployment unless the reconstructed file is byte-for-byte correct.
-          printf '%s  %s\n' '16f8baf7d42b26f2f489232f76a7087422e1f201f04b08540776df958955953d' '_site/index.html' | sha256sum -c -
-
-          cp -R assets _site/assets
-          cp _site/index.html _site/404.html
-          touch _site/.nojekyll
-
-          grep -q 'Final production refinement' _site/index.html
-          grep -q 'primary-navigation' _site/index.html
-          grep -q 'mobile-hero-title' _site/index.html
-          test -f _site/assets/brand/tgpl-logo-full.webp
-          test -f _site/assets/clients/chakor-ventures.webp
-          test -f _site/assets/clients/marriott-international.webp
-
-      - name: Sync approved HTML to repository root
-        run: |
-          set -euo pipefail
-          if ! cmp -s _site/index.html index.html; then
-            cp _site/index.html index.html
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html
-            git commit -m "Publish approved TGPL website source"
-            git push origin HEAD:main
-          fi
-
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - name: Upload Pages artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
-
+          path: .
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

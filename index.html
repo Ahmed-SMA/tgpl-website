@@ -3,57 +3,241 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#043222">
   <title>TGPL | Integrated Engineering Solutions Pakistan</title>
-  <style>
-    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#031d15;color:#f6e9d9;font-family:Inter,Arial,sans-serif}.boot{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 38%,rgba(40,182,96,.16),transparent 34%),linear-gradient(145deg,#02130e,#043222 58%,#02130e)}.boot-card{width:min(430px,100%);padding:28px;border:1px solid rgba(255,255,255,.16);border-radius:20px;background:rgba(3,53,37,.72);box-shadow:0 30px 80px rgba(0,0,0,.38);backdrop-filter:blur(22px);text-align:center}.mark{width:58px;height:58px;margin:0 auto 18px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.22);border-radius:14px;background:linear-gradient(135deg,rgba(50,201,111,.9),rgba(4,82,61,.82));font-weight:900;letter-spacing:.08em}.boot h1{margin:0;font-size:22px;text-transform:uppercase;letter-spacing:.08em}.boot p{margin:10px 0 0;color:#b9c8c0;font-size:14px}.bar{height:3px;margin-top:24px;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.1)}.bar:after{content:"";display:block;width:42%;height:100%;background:#28b660;animation:load 1.15s ease-in-out infinite alternate}@keyframes load{to{transform:translateX(140%)}}.error{color:#ffd9d9}.retry{margin-top:18px;padding:12px 18px;border:1px solid rgba(255,255,255,.25);border-radius:12px;background:rgba(40,182,96,.75);color:white;font-weight:800;cursor:pointer}
-  </style>
+  <meta name="description" content="TGPL provides diesel power, solar, vertical transportation, MEP, fire safety and power-planning solutions across Pakistan.">
+  <meta name="theme-color" content="#043222">
+  <link rel="icon" href="assets/brand/tgpl-logo-complete.png" type="image/png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body>
-  <main class="boot" id="boot">
-    <section class="boot-card">
-      <div class="mark">TGPL</div>
-      <h1>Powering Progress</h1>
-      <p id="status">Loading the approved TGPL website…</p>
-      <div class="bar" id="bar"></div>
-    </section>
-  </main>
-  <script>
-  (()=>{
-    const prefixFiles=Array.from({length:8},(_,i)=>`approved-prefix-gz/index-${String(i).padStart(3,'0')}`);
-    const tailFiles=[
-      'approved-site/index-002','approved-site/index-003','approved-site/index-004','approved-site/index-005',
-      'approved-site/index-006','approved-site/index-007','approved-site/index-008','approved-site/index-009',
-      'approved-site/index-010','approved-site/index-011','approved-site/index-012','approved-site/index-013',
-      'approved-site/index-014','approved-site/index-015a','approved-site/index-015b','approved-site/index-016',
-      'approved-site/index-017','approved-site/index-018'
-    ];
-    const text=async files=>(await Promise.all(files.map(async file=>{
-      const response=await fetch(new URL(file,location.href),{cache:'no-store'});
-      if(!response.ok) throw new Error(`${file}: ${response.status}`);
-      return (await response.text()).trim();
-    }))).join('');
-    const bytes=b64=>Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
-    const decode=b64=>new TextDecoder().decode(bytes(b64));
-    async function start(){
-      try{
-        if(!('DecompressionStream' in window)) throw new Error('This browser needs an update to open the website.');
-        const [prefix64,tail64]=await Promise.all([text(prefixFiles),text(tailFiles)]);
-        const stream=new Blob([bytes(prefix64)]).stream().pipeThrough(new DecompressionStream('gzip'));
-        const prefix=await new Response(stream).text();
-        const html=prefix+decode(tail64);
-        if(!html.includes('mobile-hero-title')||!html.includes('Final production refinement')) throw new Error('Website verification failed.');
-        document.open();document.write(html);document.close();
-      }catch(error){
-        const status=document.getElementById('status');
-        status.className='error';status.textContent='The website could not finish loading. Please refresh once.';
-        document.getElementById('bar').style.display='none';
-        const button=document.createElement('button');button.className='retry';button.textContent='Refresh website';button.onclick=()=>location.reload();
-        status.after(button);console.error(error);
-      }
-    }
-    start();
-  })();
-  </script>
+<body class="home">
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="TGPL home"><img src="assets/brand/tgpl-logo-complete.png" alt="Techno Guild Pakistan (Private) Limited"></a>
+    <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+      <a class="nav-cta" href="contact.html">Request a quote</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero hero-v4">
+    <div class="hero-v4-grid" aria-hidden="true"></div>
+    <div class="hero-v4-glow" aria-hidden="true"></div>
+    <div class="hero-v4-backdrop" aria-hidden="true">
+      <span>Powering</span>
+      <span>Progress</span>
+    </div>
+
+    <div class="container hero-v4-stage">
+      <div class="hero-v4-index">01 / INTEGRATED ENGINEERING</div>
+
+      <article class="hero-v4-copy reveal">
+        <span class="eyebrow">Built for continuity</span>
+        <p>TGPL engineers dependable systems for power, renewable energy, movement, safety and efficient building performance across Pakistan.</p>
+        <a class="btn btn-primary" href="services.html">Explore solutions
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+
+      <div class="hero-v4-visual reveal delay-1" data-parallax aria-label="TGPL generator and solar system visual">
+        <img class="hero-system-photo" src="assets/source/hero-generator-solar.png" alt="TGPL diesel generator with solar panel array" loading="eager">
+
+        <div class="hero-float-card hero-float-a"><b>01</b><span>Prime &amp; standby<br>power systems</span></div>
+        <div class="hero-float-card hero-float-b"><b>02</b><span>Solar + hybrid<br>energy integration</span></div>
+        <div class="hero-float-card hero-float-c"><b>03</b><span>Supply · install<br>commission · support</span></div>
+      </div>
+
+      <aside class="hero-v4-side reveal delay-2">
+        <strong>Power.<br>Move.<br>Protect.</strong>
+        <span>One engineering partner<br>for connected systems.</span>
+      </aside>
+
+      <div class="hero-v4-metrics reveal delay-2" aria-label="TGPL delivery model">
+        <div class="hero-v4-metric hero-v4-metric-accent"><strong>06</strong><span>Integrated engineering<br>disciplines under one delivery</span></div>
+        <div class="hero-v4-metric"><strong>01</strong><span>Accountable partner from<br>assessment to after-sales</span></div>
+        <div class="hero-v4-metric hero-v4-metric-wide"><strong>Nationwide</strong><span>Commercial, industrial and<br>institutional support across Pakistan</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Diesel Power</span><span>Solar Energy</span><span>Vertical Transportation</span><span>MEP Systems</span><span>Fire Safety</span><span>Power Planning</span>
+      <span>Diesel Power</span><span>Solar Energy</span><span>Vertical Transportation</span><span>MEP Systems</span><span>Fire Safety</span><span>Power Planning</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container editorial-intro">
+      <div class="reveal">
+        <span class="eyebrow">One coordinated delivery model</span>
+        <h2 class="h2">Engineering systems that keep business moving.</h2>
+      </div>
+      <div class="intro-note reveal delay-1">
+        <p>From initial requirement and equipment selection to installation, commissioning and lifecycle support, TGPL coordinates the systems that keep facilities operational.</p>
+        <div class="micro-list">
+          <span><b>01</b> Site and load assessment</span>
+          <span><b>02</b> Technical design and selection</span>
+          <span><b>03</b> Installation and commissioning</span>
+          <span><b>04</b> Preventive and corrective support</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+      <span class="eyebrow reveal">Core service portfolio</span>
+      <h2 class="h2 reveal">Six disciplines.<br>One operating outcome.</h2>
+      <div class="service-grid">
+        <article class="service-card reveal" data-word="Power">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h5M7 14h3M17 9v6M19 9v6"/></svg></div>
+          <h3 class="h3">Diesel Power Generators</h3>
+          <p>Prime and standby systems for commercial, institutional and industrial continuity.</p>
+          <a class="service-link" href="diesel-generators.html">Explore solution <span>→</span></a>
+        </article>
+        <article class="service-card reveal" data-word="Solar">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="17" cy="6" r="2.5"/><path d="M17 1v2M17 9v2M12 6h2M20 6h2M14 3l1.2 1.2M20 3l-1.2 1.2"/><path d="M3 12h14l2 8H5l-2-8Z"/><path d="M7 12l1 8M13 12l-1 8M4 16h14"/></svg></div>
+          <h3 class="h3">Solar Power Systems</h3>
+          <p>Grid-tied, off-grid and hybrid systems designed around resilience and operating efficiency.</p>
+          <a class="service-link" href="solar-power.html">Explore solution <span>→</span></a>
+        </article>
+        <article class="service-card reveal" data-word="Move">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 3v18M8 8l2-2 2 2M16 16l-2 2-2-2"/></svg></div>
+          <h3 class="h3">Vertical Transportation</h3>
+          <p>Passenger, freight and escalator solutions designed for safe, reliable movement.</p>
+          <a class="service-link" href="vertical-transportation.html">Explore solution <span>→</span></a>
+        </article>
+        <article class="service-card reveal" data-word="MEP">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/><circle cx="12" cy="12" r="4"/><path d="M5.6 5.6l3.5 3.5M14.9 14.9l3.5 3.5M18.4 5.6l-3.5 3.5M9.1 14.9l-3.5 3.5"/></svg></div>
+          <h3 class="h3">MEP Services</h3>
+          <p>Coordinated mechanical, electrical and plumbing systems for dependable facilities.</p>
+          <a class="service-link" href="mep-services.html">Explore solution <span>→</span></a>
+        </article>
+        <article class="service-card reveal" data-word="Safety">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2s1 4-2 7c-2-2-3-3-3-5-3 3-5 6-5 10a9 9 0 0 0 18 0c0-5-3-9-8-12Z"/><path d="M10 21c-2-2-2-5 1-8 0 2 1 3 2 4 1-1 2-2 2-4 2 3 2 6 0 8"/></svg></div>
+          <h3 class="h3">Fire Safety & Alarm</h3>
+          <p>Detection, alarm and protection systems supporting safer facilities and compliance.</p>
+          <a class="service-link" href="fire-safety.html">Explore solution <span>→</span></a>
+        </article>
+        <article class="service-card reveal" data-word="Plan">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/><path d="m3 7 6-4 6 7 7-6"/></svg></div>
+          <h3 class="h3">Power Audit & Planning</h3>
+          <p>Load analysis and energy planning for better reliability, efficiency and investment decisions.</p>
+          <a class="service-link" href="power-audit.html">Explore solution <span>→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section light-section">
+    <div class="container">
+      <span class="eyebrow reveal">Project lifecycle</span>
+      <h2 class="h2 reveal">Structured for control.<br>Designed for performance.</h2>
+      <div class="lifecycle-grid">
+        <div class="lifecycle-copy reveal">
+          <p class="lead">The delivery model scales with the project—from a focused equipment requirement to a coordinated multi-system assignment.</p>
+          <p class="muted">Each stage creates a clear technical and commercial decision point before the project moves forward.</p>
+        </div>
+        <div class="lifecycle-bars reveal delay-1">
+          <div class="lifecycle-bar" style="--h:44%"><i>01 / Assess</i><strong>Need</strong><span>Site, load, operating context and project priorities.</span></div>
+          <div class="lifecycle-bar" style="--h:60%"><i>02 / Engineer</i><strong>Design</strong><span>System sizing, product selection and coordination.</span></div>
+          <div class="lifecycle-bar" style="--h:78%"><i>03 / Deliver</i><strong>Build</strong><span>Supply, installation, testing and commissioning.</span></div>
+          <div class="lifecycle-bar" style="--h:100%"><i>04 / Support</i><strong>Protect</strong><span>Maintenance, troubleshooting and lifecycle planning.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow reveal">Capability spotlight</span>
+      <h2 class="h2 reveal">Built around real<br>operational needs.</h2>
+      <div class="work-grid">
+        <article class="work-card tall reveal">
+          <div class="work-visual visual-generator"></div>
+          <div class="work-content">
+            <span class="work-tag">Power systems</span>
+            <h3>Prime, standby and rental power.</h3>
+            <p>Generator selection, installation, commissioning, repair, maintenance and project consultancy.</p>
+          </div>
+        </article>
+        <div>
+          <article class="work-card small reveal delay-1">
+            <div class="work-visual visual-solar"></div>
+            <div class="work-content"><span class="work-tag">Renewable energy</span><h3>Solar and storage.</h3><p>Resilient energy design for businesses and facilities.</p></div>
+          </article>
+          <article class="work-card small reveal delay-2" style="margin-top:16px">
+            <div class="work-visual visual-elevator"></div>
+            <div class="work-content"><span class="work-tag">Vertical mobility</span><h3>Safe movement.</h3><p>Passenger, freight and escalator solutions.</p></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section clientele-section">
+    <div class="container logo-section-head">
+      <div class="reveal">
+        <span class="eyebrow">Selected clientele</span>
+        <h2 class="h2">Trusted across hospitality,<br>institutions and development.</h2>
+      </div>
+      <p class="lead reveal delay-1">A growing portfolio of organizations and facilities supported through TGPL’s engineering, power and technical-service assignments.</p>
+    </div>
+    <div class="logo-rail client-rail reveal" aria-label="Selected TGPL clients">
+      <div class="logo-track">
+        <div class="logo-set"><div class="logo-tile"><img src="assets/clients/ambiance-resort-hunza.webp" alt="Ambiance Resort Hunza" loading="lazy"><span>Ambiance Resort Hunza</span></div><div class="logo-tile chakor-card"><img src="assets/clients/chakor-ventures.png" alt="Chakor Ventures" loading="lazy"><span>Chakor Ventures</span></div><div class="logo-tile dark"><img src="assets/clients/citadel-7.webp" alt="Citadel 7" loading="lazy"><span>Citadel 7</span></div><div class="logo-tile"><img src="assets/clients/green-tourism.webp" alt="Green Tourism" loading="lazy"><span>Green Tourism</span></div><div class="logo-tile"><img src="assets/clients/imarat-downtown.webp" alt="IMARAT Downtown" loading="lazy"><span>IMARAT Downtown</span></div><div class="logo-tile"><img src="assets/clients/islamabad-club.webp" alt="Islamabad Club" loading="lazy"><span>Islamabad Club</span></div><div class="logo-tile"><img src="assets/clients/marriott-international.png" alt="Marriott International" loading="lazy"><span>Marriott International</span></div><div class="logo-tile"><img src="assets/clients/numl.webp" alt="National University of Modern Languages" loading="lazy"><span>National University of Modern Languages</span></div><div class="logo-tile"><img src="assets/clients/ramada.webp" alt="Ramada" loading="lazy"><span>Ramada</span></div></div>
+        <div class="logo-set" aria-hidden="true"><div class="logo-tile" aria-hidden="true"><img src="assets/clients/ambiance-resort-hunza.webp" alt="" loading="lazy"><span>Ambiance Resort Hunza</span></div><div class="logo-tile chakor-card" aria-hidden="true"><img src="assets/clients/chakor-ventures.png" alt="" loading="lazy"><span>Chakor Ventures</span></div><div class="logo-tile dark" aria-hidden="true"><img src="assets/clients/citadel-7.webp" alt="" loading="lazy"><span>Citadel 7</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/clients/green-tourism.webp" alt="" loading="lazy"><span>Green Tourism</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/clients/imarat-downtown.webp" alt="" loading="lazy"><span>IMARAT Downtown</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/clients/islamabad-club.webp" alt="" loading="lazy"><span>Islamabad Club</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/clients/marriott-international.png" alt="" loading="lazy"><span>Marriott International</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/clients/numl.webp" alt="" loading="lazy"><span>National University of Modern Languages</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/clients/ramada.webp" alt="" loading="lazy"><span>Ramada</span></div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section-sm partner-section">
+    <div class="container logo-section-head">
+      <div class="reveal">
+        <span class="eyebrow">Technology ecosystem</span>
+        <h2 class="h2">Established equipment<br>and component partners.</h2>
+      </div>
+      <p class="lead reveal delay-1">TGPL works across proven power-generation and solar technology ecosystems to configure systems around project requirements.</p>
+    </div>
+    <div class="logo-rail partner-rail reveal" aria-label="TGPL technology partners">
+      <div class="logo-track logo-track-reverse">
+        <div class="logo-set"><div class="logo-tile"><img src="assets/partners/cummins.webp" alt="Cummins" loading="lazy"><span>Cummins</span></div><div class="logo-tile"><img src="assets/partners/perkins.webp" alt="Perkins" loading="lazy"><span>Perkins</span></div><div class="logo-tile"><img src="assets/partners/volvo-penta.webp" alt="Volvo Penta" loading="lazy"><span>Volvo Penta</span></div><div class="logo-tile"><img src="assets/partners/stamford.webp" alt="Stamford" loading="lazy"><span>Stamford</span></div><div class="logo-tile"><img src="assets/partners/leroy-somer.webp" alt="Leroy-Somer" loading="lazy"><span>Leroy-Somer</span></div><div class="logo-tile"><img src="assets/partners/growatt.webp" alt="Growatt" loading="lazy"><span>Growatt</span></div><div class="logo-tile"><img src="assets/partners/ja-solar.webp" alt="JA Solar" loading="lazy"><span>JA Solar</span></div><div class="logo-tile"><img src="assets/partners/jinko-solar.webp" alt="Jinko Solar" loading="lazy"><span>Jinko Solar</span></div><div class="logo-tile"><img src="assets/partners/knox.webp" alt="Knox" loading="lazy"><span>Knox</span></div><div class="logo-tile"><img src="assets/partners/canadian-solar.webp" alt="Canadian Solar" loading="lazy"><span>Canadian Solar</span></div><div class="logo-tile"><img src="assets/partners/longi-solar.webp" alt="LONGi Solar" loading="lazy"><span>LONGi Solar</span></div><div class="logo-tile"><img src="assets/partners/schneider-electric.webp" alt="Schneider Electric" loading="lazy"><span>Schneider Electric</span></div></div>
+        <div class="logo-set" aria-hidden="true"><div class="logo-tile" aria-hidden="true"><img src="assets/partners/cummins.webp" alt="" loading="lazy"><span>Cummins</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/perkins.webp" alt="" loading="lazy"><span>Perkins</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/volvo-penta.webp" alt="" loading="lazy"><span>Volvo Penta</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/stamford.webp" alt="" loading="lazy"><span>Stamford</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/leroy-somer.webp" alt="" loading="lazy"><span>Leroy-Somer</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/growatt.webp" alt="" loading="lazy"><span>Growatt</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/ja-solar.webp" alt="" loading="lazy"><span>JA Solar</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/jinko-solar.webp" alt="" loading="lazy"><span>Jinko Solar</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/knox.webp" alt="" loading="lazy"><span>Knox</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/canadian-solar.webp" alt="" loading="lazy"><span>Canadian Solar</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/longi-solar.webp" alt="" loading="lazy"><span>LONGi Solar</span></div><div class="logo-tile" aria-hidden="true"><img src="assets/partners/schneider-electric.webp" alt="" loading="lazy"><span>Schneider Electric</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-band reveal">
+        <div><h2 class="h2">Let’s engineer the right system.</h2><p>Share your site, capacity, timeline or operational challenge. TGPL will help define the next practical step.</p></div>
+        <a class="btn" href="contact.html">Start a project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="assets/brand/tgpl-logo-complete.png" alt="Techno Guild Pakistan (Private) Limited"><p>Integrated engineering solutions across power, renewable energy, vertical transportation, MEP, fire safety and power planning.</p></div>
+      <div class="footer-col"><h5>Navigate</h5><a href="about.html">About TGPL</a><a href="services.html">Services</a><a href="projects.html">Capabilities</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h5>Solutions</h5><a href="diesel-generators.html">Diesel Power</a><a href="solar-power.html">Solar Systems</a><a href="vertical-transportation.html">Elevators</a><a href="mep-services.html">MEP Services</a></div>
+      <div class="footer-col"><h5>Contact</h5><span>7, Building 13, PHA, G-7/1, Islamabad</span><a href="tel:+92512750002">+92 51 2750002</a><a href="tel:+923484088806">+92 348 4088806</a><a href="mailto:contact@tgplpakistan.com">contact@tgplpakistan.com</a></div>
+    </div>
+    <div class="footer-bottom"><span>© <span data-year></span> Techno Guild Pakistan (Private) Limited.</span><span>Engineered for reliable progress.</span></div>
+  </div>
+</footer>
+<script src="assets/app.js"></script>
 </body>
 </html>
