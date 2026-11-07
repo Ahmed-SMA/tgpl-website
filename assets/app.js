@@ -70,3 +70,27 @@ if (parallaxTarget && window.matchMedia('(pointer:fine)').matches) {
     parallaxTarget.style.transform = '';
   });
 }
+
+
+// TGPL mobile navigation state v6
+const syncMobileNavState = () => {
+  const isOpen = Boolean(navLinks?.classList.contains('open'));
+  document.body.classList.toggle('nav-open', isOpen);
+  navToggle?.setAttribute('aria-expanded', String(isOpen));
+  navToggle?.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+};
+
+navToggle?.addEventListener('click', () => requestAnimationFrame(syncMobileNavState));
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape' || !navLinks?.classList.contains('open')) return;
+  navLinks.classList.remove('open');
+  syncMobileNavState();
+});
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900 && navLinks?.classList.contains('open')) {
+    navLinks.classList.remove('open');
+    syncMobileNavState();
+  }
+}, { passive: true });
