@@ -1827,3 +1827,377 @@ body.home .nav-links a.active::after { background: var(--accent); }
 
   .h2 { font-size: clamp(28px, 10vw, 40px); }
 }
+
+/* === TGPL FINAL MOBILE LAYOUT v6 ===
+   One authoritative phone layout. This block intentionally lives last so
+   older 760/900/620/480 rules cannot fight the hero anymore.
+   ====================================================================== */
+
+.mobile-hero-title { display: none; }
+
+@media (max-width: 600px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body.nav-open { overflow: hidden; }
+
+  .container {
+    width: calc(100% - 24px) !important;
+    max-width: none;
+    margin-inline: 12px !important;
+  }
+
+  /* Header: preserve the complete supplied vertical TGPL logo. */
+  .site-header,
+  body.home .site-header {
+    height: 74px;
+    background: rgba(2, 28, 19, .88) !important;
+    border-bottom: 1px solid rgba(116,214,152,.14);
+    backdrop-filter: blur(20px) saturate(1.25);
+    -webkit-backdrop-filter: blur(20px) saturate(1.25);
+    z-index: 1000;
+  }
+
+  .nav {
+    min-height: 74px !important;
+    height: 74px !important;
+  }
+
+  .brand {
+    width: 48px;
+    height: 68px !important;
+    padding: 4px 0 !important;
+    overflow: visible;
+  }
+
+  .brand img {
+    width: auto !important;
+    height: 60px !important;
+    max-width: 44px !important;
+    max-height: 60px !important;
+    object-fit: contain !important;
+    object-position: left center !important;
+  }
+
+  .nav-toggle {
+    display: grid !important;
+    place-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(246,233,217,.19);
+    background: rgba(246,233,217,.07);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 10px 28px rgba(0,0,0,.18);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 1002;
+  }
+
+  .nav-toggle span {
+    width: 18px !important;
+    height: 2px;
+    margin: 2.5px auto !important;
+    background: #F6E9D9 !important;
+    border-radius: 2px;
+    transition: transform .22s ease, opacity .22s ease;
+  }
+
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-links {
+    position: fixed !important;
+    inset: 82px 12px auto !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 12px !important;
+    border-radius: 18px;
+    border: 1px solid rgba(116,214,152,.22) !important;
+    background: linear-gradient(145deg, rgba(3,53,37,.92), rgba(1,25,18,.88)) !important;
+    box-shadow: 0 28px 70px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter: blur(24px) saturate(1.35);
+    -webkit-backdrop-filter: blur(24px) saturate(1.35);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px) scale(.985);
+    transform-origin: top center;
+    transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+    z-index: 1001;
+  }
+
+  .nav-links.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .nav-links a {
+    padding: 13px 14px !important;
+    border-radius: 11px;
+    color: rgba(246,233,217,.78) !important;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: #fff !important;
+    background: rgba(255,255,255,.07);
+  }
+
+  .nav-links .nav-cta {
+    min-height: 46px;
+    margin-top: 7px;
+    justify-content: center;
+    color: #fff !important;
+    background: rgba(40,182,96,.72) !important;
+    border: 1px solid rgba(255,255,255,.20) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 12px 30px rgba(40,182,96,.20);
+  }
+
+  /* Hero: use normal document flow on phones. */
+  .hero-v4 {
+    min-height: 0 !important;
+    padding: 74px 0 0 !important;
+    overflow: hidden;
+  }
+
+  .hero-v4-stage {
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 0 !important;
+    padding: 16px 0 28px !important;
+  }
+
+  .hero-v4-index {
+    position: relative !important;
+    inset: auto !important;
+    order: 1;
+    margin: 0 0 10px;
+    font-size: 8px !important;
+    line-height: 1.3;
+    letter-spacing: .14em;
+    z-index: 6;
+  }
+
+  /* Desktop oversized type caused the clipping seen on the phone. */
+  .hero-v4-backdrop { display: none !important; }
+
+  .mobile-hero-title {
+    position: relative;
+    order: 2;
+    z-index: 3;
+    display: block !important;
+    width: 128%;
+    margin: 0 0 -4px;
+    color: #F6E9D9;
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(62px, 20vw, 88px);
+    font-weight: 900;
+    line-height: .72;
+    letter-spacing: -.07em;
+    text-transform: uppercase;
+    transform: scaleX(.78);
+    transform-origin: left top;
+    pointer-events: none;
+  }
+
+  .mobile-hero-title span { display: block; }
+  .mobile-hero-title span:first-child {
+    color: transparent;
+    background: linear-gradient(180deg,#F6E9D9 4%,#9AA9A1 96%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .mobile-hero-title span:last-child {
+    margin-top: 7px;
+    color: transparent;
+    -webkit-text-stroke: 1.05px rgba(210,212,215,.52);
+  }
+
+  .hero-v4-visual {
+    position: relative !important;
+    inset: auto !important;
+    order: 3;
+    width: calc(100% + 24px) !important;
+    min-width: 0 !important;
+    height: 294px !important;
+    min-height: 294px !important;
+    max-height: none !important;
+    margin: -5px -12px 8px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important;
+    transform: none !important;
+    z-index: 4;
+  }
+
+  .hero-system-photo {
+    display: block;
+    width: 112% !important;
+    max-width: 520px !important;
+    max-height: 278px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    filter: drop-shadow(0 20px 25px rgba(0,0,0,.28));
+  }
+
+  .hero-float-card {
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: 7px 8px !important;
+    gap: 6px !important;
+    border-radius: 8px;
+    font-size: 6.2px !important;
+    line-height: 1.3;
+    letter-spacing: .05em !important;
+    background: rgba(2,31,22,.70) !important;
+    box-shadow: 0 12px 28px rgba(0,0,0,.20);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .hero-float-card b { font-size: 8px !important; }
+
+  .hero-float-a {
+    display: flex !important;
+    left: 0 !important;
+    top: auto !important;
+    bottom: 30px !important;
+  }
+
+  .hero-float-b {
+    display: flex !important;
+    right: 0 !important;
+    top: 36px !important;
+  }
+
+  .hero-float-c {
+    display: flex !important;
+    right: 2px !important;
+    top: auto !important;
+    bottom: 4px !important;
+  }
+
+  .hero-v4-side { display: none !important; }
+
+  .hero-v4-copy {
+    position: relative !important;
+    inset: auto !important;
+    order: 4;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 10px 0 14px !important;
+    padding: 20px 18px !important;
+    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(3,53,37,.82), rgba(1,26,18,.72)) !important;
+    border: 1px solid rgba(246,233,217,.15) !important;
+    box-shadow: 0 22px 52px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.05);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    z-index: 6;
+  }
+
+  .hero-v4-copy p {
+    margin: 10px 0 18px !important;
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+  }
+
+  .hero-v4-copy .btn {
+    min-height: 48px;
+    border-radius: 12px;
+  }
+
+  /* KPIs now live after the description instead of intruding into the visual. */
+  .hero-v4-metrics {
+    position: relative !important;
+    inset: auto !important;
+    order: 5;
+    width: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .hero-v4-metric {
+    min-height: 96px !important;
+    padding: 16px 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(4,50,34,.12);
+  }
+
+  .hero-v4-metric:last-child { border-bottom: 0; }
+
+  .hero-v4-metric strong {
+    flex: 0 0 auto;
+    margin: 0 !important;
+    font-size: 38px !important;
+    line-height: .8;
+  }
+
+  .hero-v4-metric-wide strong { font-size: 24px !important; }
+
+  .hero-v4-metric span {
+    font-size: 7.5px !important;
+    line-height: 1.4;
+  }
+
+  /* Keep the following sections from feeling oversized after the compact hero. */
+  .section { padding: 70px 0; }
+  .section-sm { padding: 58px 0; }
+
+  .h2 {
+    font-size: clamp(30px, 10vw, 42px) !important;
+    line-height: .92;
+  }
+
+  .h3 {
+    font-size: clamp(24px, 7vw, 32px) !important;
+  }
+
+  .logo-tile {
+    width: 178px;
+    height: 122px;
+  }
+}
+
+@media (max-width: 380px) {
+  .mobile-hero-title {
+    font-size: clamp(56px, 20vw, 72px);
+  }
+
+  .hero-v4-visual {
+    height: 270px !important;
+    min-height: 270px !important;
+  }
+
+  .hero-system-photo {
+    width: 116% !important;
+    max-height: 252px !important;
+  }
+
+  .hero-float-b { top: 28px !important; }
+}
+
